@@ -544,18 +544,75 @@
     figure { padding: 10px; margin: 14px 0; }
     .flow-paths, .compare { grid-template-columns: 1fr; gap: 14px; }
     .flow-path + .flow-path { border-top: 2px dashed var(--border-strong); padding-top: 10px; }
-    .table-wrap { overflow-x: visible; }
-    table, thead, tbody, tr, th, td { display: block; width: 100%; }
-    thead { position: absolute; left: -9999px; }
-    tr { border: 1px solid var(--border-strong); border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: var(--bg-card); }
+    html, body { overflow-x: clip; }
+    * { min-width: 0; overflow-wrap: anywhere; }
+    .table-wrap { overflow-x: visible; margin: 12px 0; }
+    table, tbody, tr, th, td, caption { display: block; width: 100%; }
+    thead { display: none; }
+    tr { border: 1px solid var(--border-strong); border-radius: 6px; margin-bottom: 8px; overflow: hidden; background: var(--bg-card); }
     tbody tr:nth-child(even) { background: var(--bg-card); }
-    td { border: none; border-top: 1px solid var(--border-color); padding: 10px 12px; }
+    td { border: none; border-top: 1px solid var(--border-color); padding: 8px 12px; line-height: 1.6; }
     td:first-child { border-top: none; }
     td::before { content: attr(data-label); display: block; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
     td.step-col, td.topic-col { width: 100%; text-align: left; background: var(--primary-bg); color: var(--primary); }
     td.step-col::before { display: inline; margin-right: 8px; }
     td.topic-col::before { display: none; }
-    caption { display: block; width: 100%; }
+
+    /* 表1・表2：ラベルを省いて縦の長さを抑える */
+    .tbl-flow tr { display: grid; grid-template-columns: 2.6em 1fr; }
+    .tbl-flow td { border-top: none; }
+    .tbl-flow td::before { display: none; }
+    .tbl-flow td.step-col { grid-row: 1 / 3; grid-column: 1; display: flex; align-items: center; justify-content: center; padding: 6px 0; font-size: 1.15rem; border-right: 1px solid var(--border-color); }
+    .tbl-flow td.topic-col { grid-column: 2; padding: 8px 12px 4px; }
+    .tbl-flow td:last-child { grid-column: 2; padding: 4px 12px 10px; background: var(--bg-card); }
+    .tbl-flow td:last-child .badge { margin-right: 6px; }
+    .tbl-flow .num-chip, .tbl-special .num-chip { padding: 0 4px; border-radius: 3px; display: inline; white-space: nowrap; }
+    .tbl-flow .badge, .tbl-special .badge { padding: 0 6px; }
+    .tbl-special td::before { display: none; }
+    .tbl-special td.topic-col { padding: 6px 12px; }
+    .tbl-special td:last-child { padding: 8px 12px 10px; border-top: 1px solid var(--border-color); }
+  }
+
+  /* スマホ：文字と余白を詰めて縦スクロールを減らす（文字は下限0.95rem以上） */
+  @media (max-width: 720px) {
+    body { font-size: 0.95rem; line-height: 1.6; }
+    .container { padding: 10px 10px 32px; }
+    .title-block { padding: 12px; margin-bottom: 10px; }
+    .title-meta { gap: 6px; margin-bottom: 6px; }
+    .meta-pill { padding: 2px 8px; }
+    h1 { font-size: 1.2rem; line-height: 1.35; margin-bottom: 6px; }
+    .title-lead { font-size: 0.95rem; }
+    .layout-grid { gap: 10px; }
+    .toc-nav { padding: 10px; }
+    .toc-heading { font-size: 0.95rem; margin-bottom: 6px; padding-bottom: 4px; }
+    .toc-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 6px; }
+    .toc-list li { margin-bottom: 0; }
+    .toc-list a { padding: 4px 6px; line-height: 1.4; }
+    .content-section { padding: 12px; margin-bottom: 12px; }
+    h2 { font-size: 1.1rem; margin-bottom: 8px; padding-bottom: 6px; }
+    h3 { font-size: 1rem; margin-bottom: 6px; }
+    p { margin-bottom: 8px; }
+    ul { margin: 4px 0 8px 0; }
+    li { margin-bottom: 3px; }
+    .badge { padding: 0 8px; margin-right: 4px; }
+    .callout { padding: 10px 12px; margin-bottom: 10px; }
+    .card-grid-2 { gap: 8px; margin: 8px 0 10px; }
+    .info-card { padding: 10px 12px; }
+    figure { padding: 8px; margin: 10px 0; }
+    figcaption { margin-top: 6px; }
+    .flow-box { padding: 8px 10px; }
+    .flow-title { margin-bottom: 4px; }
+    .flow-box p { margin-bottom: 4px; }
+    .flow-side, .flow-result { padding: 6px 10px; margin-top: 6px; }
+    .flow-arrow { padding: 3px 0; }
+    .flow-paths { gap: 8px; }
+    .flow-path + .flow-path { padding-top: 6px; }
+    .compare { gap: 8px; }
+    .compare-box { padding: 10px 12px; }
+    .check-item { padding: 8px 10px; gap: 8px; margin-bottom: 8px; }
+    .check-list { margin-top: 8px; }
+    .table-wrap { margin: 8px 0; }
+    caption { margin-bottom: 6px; }
   }
 
   @media print {
@@ -720,7 +777,7 @@
         </figure>
 
         <div class="table-wrap">
-          <table>
+          <table class="tbl-flow">
             <caption>表1：処理の判定フロー（順・論点・判断）</caption>
             <thead>
               <tr>
@@ -835,7 +892,7 @@
         <p>措置法67条の5（中小企業者等の少額減価償却資産の取得価額の損金算入の特例）の対象金額、上限、対象法人要件、および手続要件です。</p>
 
         <div class="table-wrap">
-          <table>
+          <table class="tbl-special">
             <caption>表2：中小企業者等の特例（措法67条の5）の要件整理</caption>
             <thead>
               <tr>
