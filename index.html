@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>合計20万円のタイヤ4本に関する税務処理・償却資産税の判定図解</title>
+<style>
+  :root {
+    --bg-page: #F4F7FA;
+    --bg-card: #FFFFFF;
+    --bg-subtle: #EDF2F7;
+    --text-main: #1A202C;
+    --text-muted: #4A5568;
+    --primary: #1E3A5F;
+    --primary-light: #2C5282;
+    --primary-bg: #EBF4FF;
+    --border-color: #CBD5E0;
+    --border-strong: #94A3B8;
+
+    --tag-important-bg: #FFF5F5;
+    --tag-important-border: #C53030;
+    --tag-important-text: #9B2C2C;
+
+    --tag-caution-bg: #FFFAF0;
+    --tag-caution-border: #C05621;
+    --tag-caution-text: #9C4221;
+
+    --tag-exception-bg: #FAF5FF;
+    --tag-exception-border: #6B46C1;
+    --tag-exception-text: #553C9A;
+
+    --tag-supplement-bg: #EBF8FF;
+    --tag-supplement-border: #2B6CB0;
+    --tag-supplement-text: #2C5282;
+
+    --tag-verify-bg: #FEFCBF;
+    --tag-verify-border: #B7791F;
+    --tag-verify-text: #744210;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: "Yu Gothic UI", "Yu Gothic", "Meiryo", "Hiragino Sans", "Noto Sans JP", "Noto Sans CJK JP", sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 28px 24px 56px;
+  }
+
+  .title-block {
+    background-color: var(--bg-card);
+    border: 2px solid var(--primary);
+    border-left: 10px solid var(--primary);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+
+  .title-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--primary-bg);
+    color: var(--primary);
+    border: 1px solid var(--primary-light);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.65rem;
+    line-height: 1.4;
+    color: var(--primary);
+  }
+
+  .title-lead {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 45em;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 6px;
+    line-height: 1.4;
+  }
+
+  .badge-important {
+    background-color: var(--tag-important-bg);
+    color: var(--tag-important-text);
+    border: 2px solid var(--tag-important-border);
+  }
+
+  .badge-caution {
+    background-color: var(--tag-caution-bg);
+    color: var(--tag-caution-text);
+    border: 1.5px solid var(--tag-caution-border);
+  }
+
+  .badge-exception {
+    background-color: var(--tag-exception-bg);
+    color: var(--tag-exception-text);
+    border: 1.5px dashed var(--tag-exception-border);
+  }
+
+  .badge-supplement {
+    background-color: var(--tag-supplement-bg);
+    color: var(--tag-supplement-text);
+    border: 1.5px solid var(--tag-supplement-border);
+  }
+
+  .badge-verify {
+    background-color: var(--tag-verify-bg);
+    color: var(--tag-verify-text);
+    border: 2px dotted var(--tag-verify-border);
+  }
+
+  .legend-bar {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .legend-title {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
+    margin-right: 4px;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+
+  .overview-box {
+    background-color: var(--bg-card);
+    border: 1.5px solid var(--primary-light);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .overview-link {
+    display: block;
+    text-decoration: none;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--primary);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--text-main);
+  }
+
+  .overview-link:hover,
+  .overview-link:focus {
+    background-color: var(--primary-bg);
+    outline: 2px solid var(--primary);
+  }
+
+  .overview-link-title {
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    font-size: 1rem;
+  }
+
+  .overview-link-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .toc-nav {
+    position: sticky;
+    top: 20px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 18px 16px;
+  }
+
+  .toc-heading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-list li {
+    margin-bottom: 8px;
+  }
+
+  .toc-list a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    border-left: 3px solid transparent;
+  }
+
+  .toc-list a:hover,
+  .toc-list a:focus {
+    background-color: var(--primary-bg);
+    color: var(--primary);
+    border-left-color: var(--primary);
+    font-weight: 700;
+  }
+
+  .content-section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    margin: 0 0 18px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--primary);
+    font-size: 1.35rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.08rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    max-width: 45em;
+  }
+
+  ul {
+    margin: 8px 0 12px 0;
+    padding-left: 22px;
+    max-width: 45em;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  .callout {
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .callout-important {
+    background-color: var(--tag-important-bg);
+    border: 1.5px solid var(--tag-important-border);
+    border-left: 7px solid var(--tag-important-border);
+  }
+
+  .callout-caution {
+    background-color: var(--tag-caution-bg);
+    border: 1.5px solid var(--tag-caution-border);
+    border-left: 7px solid var(--tag-caution-border);
+  }
+
+  .callout-exception {
+    background-color: var(--tag-exception-bg);
+    border: 1.5px dashed var(--tag-exception-border);
+    border-left: 7px solid var(--tag-exception-border);
+  }
+
+  .callout-supplement {
+    background-color: var(--tag-supplement-bg);
+    border: 1.5px solid var(--tag-supplement-border);
+    border-left: 7px solid var(--tag-supplement-border);
+  }
+
+  .callout-verify {
+    background-color: var(--tag-verify-bg);
+    border: 1.5px dotted var(--tag-verify-border);
+    border-left: 7px solid var(--tag-verify-border);
+  }
+
+  .card-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+    margin-top: 14px;
+    margin-bottom: 16px;
+  }
+
+  .info-card {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+
+  .info-card-solid {
+    border-left: 6px solid var(--primary);
+  }
+
+  .info-card-dashed {
+    border-left: 6px dashed var(--tag-verify-border);
+    background-color: #FFFDF7;
+  }
+
+  .num-chip {
+    display: inline-block;
+    background-color: #EDF2F7;
+    border: 1px solid #718096;
+    color: #1A202C;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    font-size: 0.98rem;
+  }
+
+  caption {
+    text-align: left;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+
+  th, td {
+    border: 1px solid var(--border-strong);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.65;
+  }
+
+  th {
+    background-color: var(--primary);
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #F8FAFC;
+  }
+
+  .step-col {
+    width: 72px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary);
+    background-color: var(--primary-bg);
+  }
+
+  .topic-col {
+    width: 240px;
+    font-weight: 700;
+  }
+
+  figure {
+    margin: 20px 0;
+    padding: 16px;
+    background-color: #F8FAFC;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .svg-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .check-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0 0;
+    max-width: 100%;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .check-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    flex-shrink: 0;
+    accent-color: var(--primary);
+  }
+
+  .check-item label {
+    font-size: 1rem;
+    cursor: pointer;
+    flex: 1;
+  }
+
+  @media (max-width: 960px) {
+    .layout-grid {
+      grid-template-columns: 1fr;
+    }
+    .toc-nav {
+      position: static;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media print {
+    body {
+      background-color: #FFFFFF;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 100%;
+      padding: 0;
+    }
+    .layout-grid {
+      grid-template-columns: 1fr;
+    }
+    .toc-nav {
+      display: none;
+    }
+    .content-section,
+    .info-card,
+    .callout,
+    figure,
+    table,
+    tr {
+      break-inside: avoid;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="title-block">
+    <div class="title-meta">
+      <span class="meta-pill">
+        <svg width="20" height="20" viewBox="0 0 24 24" role="img" aria-label="タイヤアイコン">
+          <title>タイヤ4本1組のモチーフ</title>
+          <circle cx="12" cy="12" r="9" fill="none" stroke="#1E3A5F" stroke-width="2.5"/>
+          <circle cx="12" cy="12" r="4" fill="none" stroke="#1E3A5F" stroke-width="2"/>
+          <line x1="12" y1="3" x2="12" y2="8" stroke="#1E3A5F" stroke-width="2"/>
+          <line x1="12" y1="16" x2="12" y2="21" stroke="#1E3A5F" stroke-width="2"/>
+          <line x1="3" y1="12" x2="8" y2="12" stroke="#1E3A5F" stroke-width="2"/>
+          <line x1="16" y1="12" x2="21" y2="12" stroke="#1E3A5F" stroke-width="2"/>
+        </svg>
+        対象：合計20万円のタイヤ4本（1台分）
+      </span>
+      <span class="meta-pill">基準日：2026年10月14日</span>
+    </div>
+    <h1>合計20万円のタイヤ4本に関する法人税・償却資産税の判定と実務対応</h1>
+    <p class="title-lead">既存車両への装着を前提とした「修繕費／資本的支出」「判定単位（4本1組か1本か）」「中小企業者等の特例（措法67条の5）」「償却資産税の申告要否」の整理</p>
+  </div>
+
+  <div class="layout-grid">
+    <nav class="toc-nav" aria-label="ページ内目次">
+      <div class="toc-heading">目次（基準日：2026/10/14）</div>
+      <ul class="toc-list">
+        <li><a href="#sec-summary">総括</a></li>
+        <li><a href="#sec-flow">1. 処理の判定フロー</a></li>
+        <li><a href="#sec-unit">2. 判定単位（4本1組か、1本か）</a></li>
+        <li><a href="#sec-special">3. 中小企業者等の特例（措法67条の5）</a></li>
+        <li><a href="#sec-dep-tax">4. 償却資産税（固定資産税）</a></li>
+        <li><a href="#sec-practice">5. 実務対応</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <section id="sec-summary" class="content-section" aria-labelledby="h2-summary">
+        <h2 id="h2-summary">総括（基準日：2026年10月14日）</h2>
+
+        <div class="callout callout-important">
+          <span class="badge badge-important">重要</span>
+          <strong>ただし、結論は損金算入の方向です。交換なら修繕費、追加購入で資産取得なら中小企業者等の特例（40万円未満）で処理できます。</strong>
+        </div>
+
+        <div class="card-grid-2">
+          <div class="info-card info-card-dashed">
+            <h3>
+              <span class="badge badge-verify">要確認</span>
+              判定単位：1台分（4本）＝1単位
+            </h3>
+            <p>4本合計<span class="num-chip">20万円</span>のタイヤは、<strong>1台分（4本）を1単位</strong>として判定するのが自然です。通達にタイヤの明文はなく、<strong>意見の部分が残ります</strong>。</p>
+          </div>
+
+          <div class="info-card info-card-solid">
+            <h3>
+              <span class="badge badge-important">重要</span>
+              令133条（10万円未満）の非該当
+            </h3>
+            <p>したがって、<strong>令133条の少額減価償却資産（<span class="num-chip">10万円未満</span>）には該当しません</strong>。</p>
+          </div>
+
+          <div class="info-card info-card-solid">
+            <h3>
+              <span class="badge badge-important">重要</span>
+              損金算入の2つの処理方法
+            </h3>
+            <p>ただし、結論は損金算入の方向です。<strong>交換なら修繕費、追加購入で資産取得なら中小企業者等の特例（<span class="num-chip">40万円未満</span>）</strong>で処理できます。</p>
+          </div>
+
+          <div class="info-card info-card-dashed">
+            <h3>
+              <span class="badge badge-verify">要確認</span>
+              償却資産税の扱い
+            </h3>
+            <p>償却資産税は、<strong>自動車税・軽自動車税の対象車両に装着した場合、申告不要</strong>と考えます。</p>
+            <p>基準日は<strong>2026年10月14日</strong>です。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-flow" class="content-section" aria-labelledby="h2-flow">
+        <h2 id="h2-flow">1. 処理の判定フロー</h2>
+        <p>新車・中古車の購入に付随した装着か（①）、交換か追加か（②）の分岐から、修繕費・資本的支出の判定（③・④）および資産取得時の判定（⑤）へ進む処理フローです。</p>
+
+        <figure>
+          <div class="svg-container">
+            <svg viewBox="0 0 920 560" width="920" height="560" role="img" aria-labelledby="svg-flow-title">
+              <title id="svg-flow-title">合計20万円のタイヤ4本における税務処理の判定フロー図（順①から順⑤）</title>
+              <rect x="10" y="10" width="900" height="540" rx="8" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5"/>
+
+              <rect x="40" y="30" width="500" height="74" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
+              <text x="60" y="58" font-size="16" font-weight="bold" fill="#1E3A5F">① 新車・中古車の購入に付随した装着か</text>
+              <text x="60" y="84" font-size="16" fill="#1A202C">付随装着か、既存車両への装着かを確認</text>
+
+              <line x1="540" y1="67" x2="610" y2="67" stroke="#1E3A5F" stroke-width="2.5"/>
+              <polygon points="610,67 600,61 600,73" fill="#1E3A5F"/>
+              <rect x="615" y="30" width="275" height="74" rx="6" fill="#FAF5FF" stroke="#6B46C1" stroke-width="2" stroke-dasharray="6,4"/>
+              <text x="630" y="58" font-size="16" font-weight="bold" fill="#553C9A">【付随するなら】</text>
+              <text x="630" y="84" font-size="16" fill="#1A202C">車両の取得価額に含めます（令54）</text>
+
+              <line x1="290" y1="104" x2="290" y2="145" stroke="#1E3A5F" stroke-width="2.5"/>
+              <polygon points="290,145 284,135 296,135" fill="#1E3A5F"/>
+              <text x="305" y="130" font-size="16" font-weight="bold" fill="#1E3A5F">以下は既存車両への装着を前提</text>
+
+              <rect x="40" y="150" width="500" height="74" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
+              <text x="60" y="178" font-size="16" font-weight="bold" fill="#1E3A5F">② 交換か追加か</text>
+              <text x="60" y="204" font-size="16" fill="#1A202C">摩耗タイヤの交換（③へ） ／ 冬用タイヤの追加購入など（⑤へ）</text>
+
+              <line x1="200" y1="224" x2="200" y2="268" stroke="#1E3A5F" stroke-width="2.5"/>
+              <polygon points="200,268 194,258 206,258" fill="#1E3A5F"/>
+              <text x="55" y="252" font-size="16" font-weight="bold" fill="#1E3A5F">摩耗交換：修理・改良等の問題（③へ）</text>
+
+              <line x1="540" y1="187" x2="680" y2="187" stroke="#1E3A5F" stroke-width="2.5"/>
+              <line x1="680" y1="187" x2="680" y2="268" stroke="#1E3A5F" stroke-width="2.5"/>
+              <polygon points="680,268 674,258 686,258" fill="#1E3A5F"/>
+              <text x="550" y="176" font-size="16" font-weight="bold" fill="#1E3A5F">追加購入：新たな資産の取得（⑤へ）</text>
+
+              <rect x="30" y="272" width="420" height="110" rx="6" fill="#FFFFFF" stroke="#2C5282" stroke-width="2"/>
+              <text x="46" y="300" font-size="16" font-weight="bold" fill="#1E3A5F">③ 修繕費か資本的支出か（法基通7-8-1、7-8-2）</text>
+              <text x="46" y="328" font-size="16" fill="#1A202C">・通常の取替えは修繕費</text>
+              <text x="46" y="354" font-size="16" fill="#1A202C">・特に高性能：通常の取替え費用超の部分のみ資本的支出</text>
+
+              <line x1="240" y1="382" x2="240" y2="418" stroke="#1E3A5F" stroke-width="2.5"/>
+              <polygon points="240,418 234,408 246,408" fill="#1E3A5F"/>
+
+              <rect x="30" y="422" width="420" height="110" rx="6" fill="#FFF5F5" stroke="#C53030" stroke-width="2"/>
+              <text x="46" y="450" font-size="16" font-weight="bold" fill="#9B2C2C">④ 区分不明の部分の扱い（7-8-4(1)）</text>
+              <text x="46" y="478" font-size="16" fill="#1A202C">・60万円未満なら修繕費にできます（今回の20万円は該当）</text>
+              <text x="46" y="504" font-size="16" font-weight="bold" fill="#9B2C2C">・損金経理が必要です</text>
+
+              <rect x="475" y="272" width="415" height="260" rx="6" fill="#FFF5F5" stroke="#C53030" stroke-width="2"/>
+              <text x="492" y="302" font-size="16" font-weight="bold" fill="#9B2C2C">⑤ 資産の取得となる場合</text>
+              <text x="492" y="334" font-size="16" fill="#1A202C">・判定単位は4本1組（合計20万円）</text>
+              <text x="492" y="366" font-size="16" fill="#1A202C">・10万円未満は不可</text>
+              <text x="492" y="398" font-size="16" fill="#1A202C">・一括償却資産（20万円未満）は、</text>
+              <text x="508" y="424" font-size="16" fill="#9C4221">税込経理で20万円ちょうどなら不可</text>
+              <rect x="492" y="446" width="380" height="68" rx="4" fill="#FFFFFF" stroke="#C53030" stroke-width="1.5"/>
+              <text x="506" y="474" font-size="16" font-weight="bold" fill="#9B2C2C">結論：措置法67条の5の特例</text>
+              <text x="506" y="500" font-size="16" font-weight="bold" fill="#1A202C">（40万円未満）が使えます</text>
+            </svg>
+          </div>
+          <figcaption>図1：処理の判定フロー（順①〜⑤）</figcaption>
+        </figure>
+
+        <div class="table-wrap">
+          <table>
+            <caption>表1：処理の判定フロー（順・論点・判断）</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="step-col">順</th>
+                <th scope="col" class="topic-col">論点</th>
+                <th scope="col">判断</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="step-col">①</td>
+                <td class="topic-col">新車・中古車の購入に付随した装着か</td>
+                <td>
+                  <span class="badge badge-exception">例外</span>
+                  付随するなら<strong>車両の取得価額に含めます（令54）</strong>。以下は<strong>既存車両への装着を前提</strong>にします。
+                </td>
+              </tr>
+              <tr>
+                <td class="step-col">②</td>
+                <td class="topic-col">交換か追加か</td>
+                <td>
+                  <strong>摩耗したタイヤの交換</strong>は修理・改良等の問題（<strong>③へ</strong>）。<strong>冬用タイヤの追加購入など</strong>は、新たな資産の取得（<strong>⑤へ</strong>）。
+                </td>
+              </tr>
+              <tr>
+                <td class="step-col">③</td>
+                <td class="topic-col">修繕費か資本的支出か</td>
+                <td>
+                  <strong>通常の取替えは修繕費</strong>。<strong>特に高性能なものに替えた場合</strong>は、<strong>通常の取替え費用を超える部分のみ資本的支出（法基通7-8-1、7-8-2）</strong>。
+                </td>
+              </tr>
+              <tr>
+                <td class="step-col">④</td>
+                <td class="topic-col">区分不明の部分の扱い</td>
+                <td>
+                  <span class="badge badge-important">重要</span>
+                  <strong><span class="num-chip">60万円未満</span>なら修繕費にできます（7-8-4(1)）</strong>。今回の<span class="num-chip">20万円</span>は該当します。<strong>損金経理が必要</strong>です。
+                </td>
+              </tr>
+              <tr>
+                <td class="step-col">⑤</td>
+                <td class="topic-col">資産の取得となる場合</td>
+                <td>
+                  <span class="badge badge-important">重要</span>
+                  判定単位は<strong>4本1組（合計<span class="num-chip">20万円</span>）</strong>。<strong><span class="num-chip">10万円未満</span>は不可</strong>。<strong>一括償却資産（<span class="num-chip">20万円未満</span>）は、税込経理で20万円ちょうどなら不可</strong>。<strong>措置法67条の5の特例（<span class="num-chip">40万円未満</span>）が使えます</strong>。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="sec-unit" class="content-section" aria-labelledby="h2-unit">
+        <h2 id="h2-unit">2. 判定単位（4本1組か、1本か）</h2>
+        <p>工具器具備品の判定単位に関する通達・国税庁の例示と、タイヤへの当てはめ（意見）、および反論の余地に対する実務上の備えです。</p>
+
+        <figure>
+          <div class="svg-container">
+            <svg viewBox="0 0 920 300" width="920" height="300" role="img" aria-labelledby="svg-unit-title">
+              <title id="svg-unit-title">判定単位に関する4本1組の根拠と1本単位の反論の余地の対比図</title>
+              <rect x="10" y="10" width="900" height="280" rx="8" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5"/>
+
+              <rect x="30" y="30" width="480" height="240" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
+              <text x="50" y="60" font-size="16" font-weight="bold" fill="#1E3A5F">【4本1組（1台分）と判定する根拠と意見】</text>
+              <text x="50" y="92" font-size="16" fill="#1A202C">・根拠：法基通7-8-1ではなく7-1-11</text>
+              <text x="66" y="118" font-size="16" fill="#1A202C">（工具器具備品は1個・1組・1そろいごと）</text>
+              <text x="50" y="150" font-size="16" fill="#1A202C">・例示（No.5403）：応接セット（1組）、カーテン（部屋ごと）</text>
+              <text x="66" y="176" font-size="16" fill="#4A5568">→ 単独では機能しないため組単位</text>
+              <text x="50" y="210" font-size="16" font-weight="bold" fill="#744210">・タイヤ（意見）：1本では走行できず、1台分で機能</text>
+              <text x="66" y="236" font-size="16" fill="#744210">別の車に付けられる点は1本判定の強い理由にならない</text>
+
+              <rect x="530" y="30" width="360" height="240" rx="6" fill="#FFFAF0" stroke="#C05621" stroke-width="2"/>
+              <text x="550" y="60" font-size="16" font-weight="bold" fill="#9C4221">【反論の余地と有益な証憑保存】</text>
+              <text x="550" y="98" font-size="16" fill="#1A202C">・反論の余地：</text>
+              <text x="566" y="124" font-size="16" fill="#1A202C">タイヤが1本単位でも販売されている点</text>
+              <line x1="550" y1="150" x2="870" y2="150" stroke="#CBD5E0" stroke-width="1.5"/>
+              <text x="550" y="182" font-size="16" font-weight="bold" fill="#1E3A5F">・実務上の備え：</text>
+              <text x="566" y="210" font-size="16" fill="#1A202C">見積書・請求書が1台分でまとまっているかを</text>
+              <text x="566" y="236" font-size="16" fill="#1A202C">保存しておくと有益</text>
+            </svg>
+          </div>
+          <figcaption>図2：判定単位（4本1組か、1本か）の根拠と反論の余地</figcaption>
+        </figure>
+
+        <div class="card-grid-2">
+          <div class="info-card info-card-solid">
+            <h3>根拠通達（法基通7-1-11）</h3>
+            <p><strong>法基通7-8-1ではなく7-1-11が根拠</strong>です。通常1単位として取引される単位で判定し、工具器具備品は<strong>1個・1組・1そろいごと</strong>です。</p>
+          </div>
+
+          <div class="info-card info-card-solid">
+            <h3>
+              <span class="badge badge-supplement">補足</span>
+              国税庁の例示（タックスアンサーNo.5403）
+            </h3>
+            <p>国税庁の例示では、<strong>応接セットはテーブルと椅子の1組</strong>、<strong>カーテンは部屋ごとの合計</strong>です（タックスアンサーNo.5403）。<strong>バラして別の部屋に置けても、単独では機能しないため、組単位</strong>とされています。</p>
+          </div>
+
+          <div class="info-card info-card-dashed">
+            <h3>
+              <span class="badge badge-verify">要確認</span>
+              タイヤへの当てはめ（意見）
+            </h3>
+            <p>タイヤも、<strong>1本では走行できず、どの車に付けても1台分で機能</strong>します。<strong>別の車に付けられる点は、1本ごとに判定する強い理由になりません（意見）</strong>。</p>
+          </div>
+
+          <div class="info-card info-card-solid">
+            <h3>
+              <span class="badge badge-caution">注意</span>
+              反論の余地と証憑保存
+            </h3>
+            <p>反論の余地は、<strong>タイヤが1本単位でも販売されている点</strong>です。<strong>見積書・請求書が1台分でまとまっているかを保存しておくと有益</strong>です。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-special" class="content-section" aria-labelledby="h2-special">
+        <h2 id="h2-special">3. 中小企業者等の特例（措法67条の5）</h2>
+        <p>措置法67条の5（中小企業者等の少額減価償却資産の取得価額の損金算入の特例）の対象金額、上限、対象法人要件、および手続要件です。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>表2：中小企業者等の特例（措法67条の5）の要件整理</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="topic-col">項目</th>
+                <th scope="col">要件・内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="topic-col">対象となる取得価額</td>
+                <td>
+                  <span class="badge badge-important">重要</span>
+                  <strong><span class="num-chip">令和8年4月1日以後</span>に取得する資産は、取得価額<span class="num-chip">40万円未満</span>が対象</strong>です（改正前は<span class="num-chip">30万円未満</span>）。
+                </td>
+              </tr>
+              <tr>
+                <td class="topic-col">年間の合計上限</td>
+                <td>
+                  <span class="badge badge-caution">注意</span>
+                  年間の合計は<strong><span class="num-chip">300万円</span>が上限</strong>です。
+                </td>
+              </tr>
+              <tr>
+                <td class="topic-col">対象法人・従業員数</td>
+                <td>
+                  <span class="badge badge-important">重要</span>
+                  <strong>青色申告の中小企業者等</strong>で、<strong>常時使用する従業員が<span class="num-chip">400人以下</span></strong>であることが必要です（取得が<strong><span class="num-chip">令和8年3月31日以前</span>なら<span class="num-chip">500人以下</span></strong>）。
+                </td>
+              </tr>
+              <tr>
+                <td class="topic-col">損金経理・別表添付</td>
+                <td>
+                  <span class="badge badge-important">重要</span>
+                  <strong>事業供用年度に損金経理</strong>し、<strong>確定申告書に別表16(7)を添付</strong>します。<strong>一度資産計上したものを、後の事業年度に一時損金にすることはできません</strong>。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="sec-dep-tax" class="content-section" aria-labelledby="h2-dep-tax">
+        <h2 id="h2-dep-tax">4. 償却資産税（固定資産税）</h2>
+        <p>法人税での処理ごとの償却資産の申告要否と、自動車のタイヤに関する申告要否の考え方です。</p>
+
+        <div class="table-wrap">
+          <table>
+            <caption>表3：法人税での処理と償却資産の申告</caption>
+            <thead>
+              <tr>
+                <th scope="col">法人税での処理</th>
+                <th scope="col">償却資産の申告</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>令133の少額減価償却資産（10万円未満）の一時損金</td>
+                <td><strong>対象外</strong></td>
+              </tr>
+              <tr>
+                <td>一括償却資産（3年均等）</td>
+                <td><strong>対象外</strong></td>
+              </tr>
+              <tr>
+                <td>措置法67条の5の特例で即時償却</td>
+                <td><strong>対象（申告が必要）</strong></td>
+              </tr>
+              <tr>
+                <td>修繕費</td>
+                <td><strong>資産計上がないため対象外</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-exception">
+          <span class="badge badge-exception">例外</span>
+          <strong>自動車税・軽自動車税の対象車両のタイヤおよび特殊自動車の扱い：</strong>
+          <p style="margin-top: 8px; margin-bottom: 0;">タイヤは<strong>自動車税・軽自動車税の対象車両の一部</strong>なので、<strong>特例を使っても申告対象外</strong>と考えます。根拠は<strong>地方税法341条4号</strong>です。<strong>固定資産税側で課税される特殊自動車の場合は、自治体への確認が必要</strong>です。</p>
+        </div>
+      </section>
+
+      <section id="sec-practice" class="content-section" aria-labelledby="h2-practice">
+        <h2 id="h2-practice">5. 実務対応</h2>
+        <p>実務で進める際の確認事項・証憑保存・意思決定の4項目です。</p>
+
+        <ul class="check-list">
+          <li class="check-item">
+            <input type="checkbox" id="chk-1">
+            <label for="chk-1">
+              <strong>取得日、交換か追加か、取替前後のグレード、ホイールの有無、工賃を確認します。</strong>
+            </label>
+          </li>
+          <li class="check-item">
+            <input type="checkbox" id="chk-2">
+            <label for="chk-2">
+              <strong>見積書・請求書でタイヤ単価・本数・工賃の内訳を確認します。</strong>
+            </label>
+          </li>
+          <li class="check-item">
+            <input type="checkbox" id="chk-3">
+            <label for="chk-3">
+              <strong>交換前のタイヤを廃棄した記録（整備記録、写真）を残します。</strong>
+            </label>
+          </li>
+          <li class="check-item">
+            <input type="checkbox" id="chk-4">
+            <label for="chk-4">
+              <span class="badge badge-caution">注意</span>
+              <strong>修繕費にするか、特例にするかを決めます。特例を使うと年<span class="num-chip">300万円</span>の枠を消費します。</strong>
+            </label>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
