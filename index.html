@@ -464,6 +464,29 @@
     margin: 0 auto;
   }
 
+
+  .flow { display: flex; flex-direction: column; }
+  .flow-box { border: 2px solid var(--primary); border-radius: 6px; padding: 12px 16px; background: var(--bg-card); }
+  .flow-main { background: var(--primary-bg); }
+  .flow-plain { border-color: var(--primary-light); }
+  .flow-key { border-color: var(--tag-important-border); background: var(--tag-important-bg); }
+  .flow-title { font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .flow-no { display: inline-block; min-width: 1.8em; color: var(--primary); font-weight: 700; }
+  .flow-box p { margin: 0 0 6px 0; }
+  .flow-box ul { margin: 4px 0 6px 0; padding-left: 20px; }
+  .flow-side { margin-top: 8px; padding: 8px 12px; border: 1.5px dashed var(--tag-exception-border); border-radius: 6px; background: var(--tag-exception-bg); }
+  .flow-result { margin-top: 8px; padding: 8px 12px; border: 1.5px solid var(--tag-important-border); border-radius: 6px; background: #FFFFFF; color: var(--tag-important-text); }
+  .flow-arrow { text-align: center; font-weight: 700; color: var(--primary); padding: 6px 0; font-size: 0.95rem; }
+  .flow-arrow::before { content: "\2193\00a0"; }
+  .flow-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .flow-path { display: flex; flex-direction: column; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .compare-box { border-radius: 6px; padding: 14px 16px; }
+  .compare-box h3 { font-size: 1rem; }
+  .compare-box ul { margin: 6px 0 0 0; padding-left: 20px; }
+  .compare-blue { background: var(--primary-bg); border: 2px solid var(--primary); }
+  .compare-orange { background: var(--tag-caution-bg); border: 2px solid var(--tag-caution-border); }
+
   .check-list {
     list-style: none;
     padding: 0;
@@ -504,6 +527,35 @@
       position: static;
       margin-bottom: 20px;
     }
+  }
+
+
+  @media (max-width: 720px) {
+    .container { padding: 12px 12px 40px; }
+    .title-block { padding: 14px; border-left-width: 8px; margin-bottom: 14px; }
+    h1 { font-size: 1.3rem; }
+    h2 { font-size: 1.2rem; margin-bottom: 12px; }
+    .layout-grid { gap: 14px; }
+    .toc-nav { padding: 12px; margin-bottom: 0; }
+    .content-section { padding: 16px 14px; margin-bottom: 16px; }
+    .callout { padding: 12px 14px; }
+    .card-grid-2 { grid-template-columns: 1fr; gap: 12px; }
+    .info-card { padding: 14px; }
+    figure { padding: 10px; margin: 14px 0; }
+    .flow-paths, .compare { grid-template-columns: 1fr; gap: 14px; }
+    .flow-path + .flow-path { border-top: 2px dashed var(--border-strong); padding-top: 10px; }
+    .table-wrap { overflow-x: visible; }
+    table, thead, tbody, tr, th, td { display: block; width: 100%; }
+    thead { position: absolute; left: -9999px; }
+    tr { border: 1px solid var(--border-strong); border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: var(--bg-card); }
+    tbody tr:nth-child(even) { background: var(--bg-card); }
+    td { border: none; border-top: 1px solid var(--border-color); padding: 10px 12px; }
+    td:first-child { border-top: none; }
+    td::before { content: attr(data-label); display: block; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
+    td.step-col, td.topic-col { width: 100%; text-align: left; background: var(--primary-bg); color: var(--primary); }
+    td.step-col::before { display: inline; margin-right: 8px; }
+    td.topic-col::before { display: none; }
+    caption { display: block; width: 100%; }
   }
 
   @media print {
@@ -620,61 +672,49 @@
         <p>新車・中古車の購入に付随した装着か（①）、交換か追加か（②）の分岐から、修繕費・資本的支出の判定（③・④）および資産取得時の判定（⑤）へ進む処理フローです。</p>
 
         <figure>
-          <div class="svg-container">
-            <svg viewBox="0 0 920 560" width="920" height="560" role="img" aria-labelledby="svg-flow-title">
-              <title id="svg-flow-title">合計20万円のタイヤ4本における税務処理の判定フロー図（順①から順⑤）</title>
-              <rect x="10" y="10" width="900" height="540" rx="8" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5"/>
-
-              <rect x="40" y="30" width="500" height="74" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
-              <text x="60" y="58" font-size="16" font-weight="bold" fill="#1E3A5F">① 新車・中古車の購入に付随した装着か</text>
-              <text x="60" y="84" font-size="16" fill="#1A202C">付随装着か、既存車両への装着かを確認</text>
-
-              <line x1="540" y1="67" x2="610" y2="67" stroke="#1E3A5F" stroke-width="2.5"/>
-              <polygon points="610,67 600,61 600,73" fill="#1E3A5F"/>
-              <rect x="615" y="30" width="275" height="74" rx="6" fill="#FAF5FF" stroke="#6B46C1" stroke-width="2" stroke-dasharray="6,4"/>
-              <text x="630" y="58" font-size="16" font-weight="bold" fill="#553C9A">【付随するなら】</text>
-              <text x="630" y="84" font-size="16" fill="#1A202C">車両の取得価額に含めます（令54）</text>
-
-              <line x1="290" y1="104" x2="290" y2="145" stroke="#1E3A5F" stroke-width="2.5"/>
-              <polygon points="290,145 284,135 296,135" fill="#1E3A5F"/>
-              <text x="305" y="130" font-size="16" font-weight="bold" fill="#1E3A5F">以下は既存車両への装着を前提</text>
-
-              <rect x="40" y="150" width="500" height="74" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
-              <text x="60" y="178" font-size="16" font-weight="bold" fill="#1E3A5F">② 交換か追加か</text>
-              <text x="60" y="204" font-size="16" fill="#1A202C">摩耗タイヤの交換（③へ） ／ 冬用タイヤの追加購入など（⑤へ）</text>
-
-              <line x1="200" y1="224" x2="200" y2="268" stroke="#1E3A5F" stroke-width="2.5"/>
-              <polygon points="200,268 194,258 206,258" fill="#1E3A5F"/>
-              <text x="55" y="252" font-size="16" font-weight="bold" fill="#1E3A5F">摩耗交換：修理・改良等の問題（③へ）</text>
-
-              <line x1="540" y1="187" x2="680" y2="187" stroke="#1E3A5F" stroke-width="2.5"/>
-              <line x1="680" y1="187" x2="680" y2="268" stroke="#1E3A5F" stroke-width="2.5"/>
-              <polygon points="680,268 674,258 686,258" fill="#1E3A5F"/>
-              <text x="550" y="176" font-size="16" font-weight="bold" fill="#1E3A5F">追加購入：新たな資産の取得（⑤へ）</text>
-
-              <rect x="30" y="272" width="420" height="110" rx="6" fill="#FFFFFF" stroke="#2C5282" stroke-width="2"/>
-              <text x="46" y="300" font-size="16" font-weight="bold" fill="#1E3A5F">③ 修繕費か資本的支出か（法基通7-8-1、7-8-2）</text>
-              <text x="46" y="328" font-size="16" fill="#1A202C">・通常の取替えは修繕費</text>
-              <text x="46" y="354" font-size="16" fill="#1A202C">・特に高性能：通常の取替え費用超の部分のみ資本的支出</text>
-
-              <line x1="240" y1="382" x2="240" y2="418" stroke="#1E3A5F" stroke-width="2.5"/>
-              <polygon points="240,418 234,408 246,408" fill="#1E3A5F"/>
-
-              <rect x="30" y="422" width="420" height="110" rx="6" fill="#FFF5F5" stroke="#C53030" stroke-width="2"/>
-              <text x="46" y="450" font-size="16" font-weight="bold" fill="#9B2C2C">④ 区分不明の部分の扱い（7-8-4(1)）</text>
-              <text x="46" y="478" font-size="16" fill="#1A202C">・60万円未満なら修繕費にできます（今回の20万円は該当）</text>
-              <text x="46" y="504" font-size="16" font-weight="bold" fill="#9B2C2C">・損金経理が必要です</text>
-
-              <rect x="475" y="272" width="415" height="260" rx="6" fill="#FFF5F5" stroke="#C53030" stroke-width="2"/>
-              <text x="492" y="302" font-size="16" font-weight="bold" fill="#9B2C2C">⑤ 資産の取得となる場合</text>
-              <text x="492" y="334" font-size="16" fill="#1A202C">・判定単位は4本1組（合計20万円）</text>
-              <text x="492" y="366" font-size="16" fill="#1A202C">・10万円未満は不可</text>
-              <text x="492" y="398" font-size="16" fill="#1A202C">・一括償却資産（20万円未満）は、</text>
-              <text x="508" y="424" font-size="16" fill="#9C4221">税込経理で20万円ちょうどなら不可</text>
-              <rect x="492" y="446" width="380" height="68" rx="4" fill="#FFFFFF" stroke="#C53030" stroke-width="1.5"/>
-              <text x="506" y="474" font-size="16" font-weight="bold" fill="#9B2C2C">結論：措置法67条の5の特例</text>
-              <text x="506" y="500" font-size="16" font-weight="bold" fill="#1A202C">（40万円未満）が使えます</text>
-            </svg>
+          <div class="flow">
+            <div class="flow-box flow-main">
+              <div class="flow-title"><span class="flow-no">①</span>新車・中古車の購入に付随した装着か</div>
+              <p>付随装着か、既存車両への装着かを確認</p>
+              <div class="flow-side"><span class="badge badge-exception">例外</span><strong>付随するなら：</strong>車両の取得価額に含めます（令54）</div>
+            </div>
+            <div class="flow-arrow">以下は既存車両への装着を前提</div>
+            <div class="flow-box flow-main">
+              <div class="flow-title"><span class="flow-no">②</span>交換か追加か</div>
+              <p>摩耗タイヤの交換（③へ） ／ 冬用タイヤの追加購入など（⑤へ）</p>
+            </div>
+            <div class="flow-paths">
+              <div class="flow-path">
+                <div class="flow-arrow">摩耗交換：修理・改良等の問題（③へ）</div>
+                <div class="flow-box flow-plain">
+                  <div class="flow-title"><span class="flow-no">③</span>修繕費か資本的支出か（法基通7-8-1、7-8-2）</div>
+                  <ul>
+                    <li>通常の取替えは修繕費</li>
+                    <li>特に高性能：通常の取替え費用超の部分のみ資本的支出</li>
+                  </ul>
+                </div>
+                <div class="flow-arrow"></div>
+                <div class="flow-box flow-key">
+                  <div class="flow-title"><span class="flow-no">④</span><span class="badge badge-important">重要</span>区分不明の部分の扱い（7-8-4(1)）</div>
+                  <ul>
+                    <li>60万円未満なら修繕費にできます（今回の20万円は該当）</li>
+                    <li><strong>損金経理が必要です</strong></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="flow-path">
+                <div class="flow-arrow">追加購入：新たな資産の取得（⑤へ）</div>
+                <div class="flow-box flow-key">
+                  <div class="flow-title"><span class="flow-no">⑤</span><span class="badge badge-important">重要</span>資産の取得となる場合</div>
+                  <ul>
+                    <li>判定単位は4本1組（合計20万円）</li>
+                    <li>10万円未満は不可</li>
+                    <li>一括償却資産（20万円未満）は、税込経理で20万円ちょうどなら不可</li>
+                  </ul>
+                  <div class="flow-result"><strong>結論：措置法67条の5の特例（40万円未満）が使えます</strong></div>
+                </div>
+              </div>
+            </div>
           </div>
           <figcaption>図1：処理の判定フロー（順①〜⑤）</figcaption>
         </figure>
@@ -691,39 +731,39 @@
             </thead>
             <tbody>
               <tr>
-                <td class="step-col">①</td>
-                <td class="topic-col">新車・中古車の購入に付随した装着か</td>
-                <td>
+                <td class="step-col" data-label="順">①</td>
+                <td data-label="論点" class="topic-col">新車・中古車の購入に付随した装着か</td>
+                <td data-label="判断">
                   <span class="badge badge-exception">例外</span>
                   付随するなら<strong>車両の取得価額に含めます（令54）</strong>。以下は<strong>既存車両への装着を前提</strong>にします。
                 </td>
               </tr>
               <tr>
-                <td class="step-col">②</td>
-                <td class="topic-col">交換か追加か</td>
-                <td>
+                <td class="step-col" data-label="順">②</td>
+                <td data-label="論点" class="topic-col">交換か追加か</td>
+                <td data-label="判断">
                   <strong>摩耗したタイヤの交換</strong>は修理・改良等の問題（<strong>③へ</strong>）。<strong>冬用タイヤの追加購入など</strong>は、新たな資産の取得（<strong>⑤へ</strong>）。
                 </td>
               </tr>
               <tr>
-                <td class="step-col">③</td>
-                <td class="topic-col">修繕費か資本的支出か</td>
-                <td>
+                <td class="step-col" data-label="順">③</td>
+                <td data-label="論点" class="topic-col">修繕費か資本的支出か</td>
+                <td data-label="判断">
                   <strong>通常の取替えは修繕費</strong>。<strong>特に高性能なものに替えた場合</strong>は、<strong>通常の取替え費用を超える部分のみ資本的支出（法基通7-8-1、7-8-2）</strong>。
                 </td>
               </tr>
               <tr>
-                <td class="step-col">④</td>
-                <td class="topic-col">区分不明の部分の扱い</td>
-                <td>
+                <td class="step-col" data-label="順">④</td>
+                <td data-label="論点" class="topic-col">区分不明の部分の扱い</td>
+                <td data-label="判断">
                   <span class="badge badge-important">重要</span>
                   <strong><span class="num-chip">60万円未満</span>なら修繕費にできます（7-8-4(1)）</strong>。今回の<span class="num-chip">20万円</span>は該当します。<strong>損金経理が必要</strong>です。
                 </td>
               </tr>
               <tr>
-                <td class="step-col">⑤</td>
-                <td class="topic-col">資産の取得となる場合</td>
-                <td>
+                <td class="step-col" data-label="順">⑤</td>
+                <td data-label="論点" class="topic-col">資産の取得となる場合</td>
+                <td data-label="判断">
                   <span class="badge badge-important">重要</span>
                   判定単位は<strong>4本1組（合計<span class="num-chip">20万円</span>）</strong>。<strong><span class="num-chip">10万円未満</span>は不可</strong>。<strong>一括償却資産（<span class="num-chip">20万円未満</span>）は、税込経理で20万円ちょうどなら不可</strong>。<strong>措置法67条の5の特例（<span class="num-chip">40万円未満</span>）が使えます</strong>。
                 </td>
@@ -738,29 +778,22 @@
         <p>工具器具備品の判定単位に関する通達・国税庁の例示と、タイヤへの当てはめ（意見）、および反論の余地に対する実務上の備えです。</p>
 
         <figure>
-          <div class="svg-container">
-            <svg viewBox="0 0 920 300" width="920" height="300" role="img" aria-labelledby="svg-unit-title">
-              <title id="svg-unit-title">判定単位に関する4本1組の根拠と1本単位の反論の余地の対比図</title>
-              <rect x="10" y="10" width="900" height="280" rx="8" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5"/>
-
-              <rect x="30" y="30" width="480" height="240" rx="6" fill="#EBF4FF" stroke="#1E3A5F" stroke-width="2"/>
-              <text x="50" y="60" font-size="16" font-weight="bold" fill="#1E3A5F">【4本1組（1台分）と判定する根拠と意見】</text>
-              <text x="50" y="92" font-size="16" fill="#1A202C">・根拠：法基通7-8-1ではなく7-1-11</text>
-              <text x="66" y="118" font-size="16" fill="#1A202C">（工具器具備品は1個・1組・1そろいごと）</text>
-              <text x="50" y="150" font-size="16" fill="#1A202C">・例示（No.5403）：応接セット（1組）、カーテン（部屋ごと）</text>
-              <text x="66" y="176" font-size="16" fill="#4A5568">→ 単独では機能しないため組単位</text>
-              <text x="50" y="210" font-size="16" font-weight="bold" fill="#744210">・タイヤ（意見）：1本では走行できず、1台分で機能</text>
-              <text x="66" y="236" font-size="16" fill="#744210">別の車に付けられる点は1本判定の強い理由にならない</text>
-
-              <rect x="530" y="30" width="360" height="240" rx="6" fill="#FFFAF0" stroke="#C05621" stroke-width="2"/>
-              <text x="550" y="60" font-size="16" font-weight="bold" fill="#9C4221">【反論の余地と有益な証憑保存】</text>
-              <text x="550" y="98" font-size="16" fill="#1A202C">・反論の余地：</text>
-              <text x="566" y="124" font-size="16" fill="#1A202C">タイヤが1本単位でも販売されている点</text>
-              <line x1="550" y1="150" x2="870" y2="150" stroke="#CBD5E0" stroke-width="1.5"/>
-              <text x="550" y="182" font-size="16" font-weight="bold" fill="#1E3A5F">・実務上の備え：</text>
-              <text x="566" y="210" font-size="16" fill="#1A202C">見積書・請求書が1台分でまとまっているかを</text>
-              <text x="566" y="236" font-size="16" fill="#1A202C">保存しておくと有益</text>
-            </svg>
+          <div class="compare">
+            <div class="compare-box compare-blue">
+              <h3>4本1組（1台分）と判定する根拠と意見</h3>
+              <ul>
+                <li>根拠：法基通7-8-1ではなく7-1-11（工具器具備品は1個・1組・1そろいごと）</li>
+                <li>例示（No.5403）：応接セット（1組）、カーテン（部屋ごと）<br>→ 単独では機能しないため組単位</li>
+                <li><span class="badge badge-verify">要確認</span>タイヤ（意見）：1本では走行できず、1台分で機能。別の車に付けられる点は1本判定の強い理由にならない</li>
+              </ul>
+            </div>
+            <div class="compare-box compare-orange">
+              <h3>反論の余地と有益な証憑保存</h3>
+              <ul>
+                <li>反論の余地：タイヤが1本単位でも販売されている点</li>
+                <li>実務上の備え：見積書・請求書が1台分でまとまっているかを保存しておくと有益</li>
+              </ul>
+            </div>
           </div>
           <figcaption>図2：判定単位（4本1組か、1本か）の根拠と反論の余地</figcaption>
         </figure>
@@ -812,29 +845,29 @@
             </thead>
             <tbody>
               <tr>
-                <td class="topic-col">対象となる取得価額</td>
-                <td>
+                <td data-label="項目" class="topic-col">対象となる取得価額</td>
+                <td data-label="要件・内容">
                   <span class="badge badge-important">重要</span>
                   <strong><span class="num-chip">令和8年4月1日以後</span>に取得する資産は、取得価額<span class="num-chip">40万円未満</span>が対象</strong>です（改正前は<span class="num-chip">30万円未満</span>）。
                 </td>
               </tr>
               <tr>
-                <td class="topic-col">年間の合計上限</td>
-                <td>
+                <td data-label="項目" class="topic-col">年間の合計上限</td>
+                <td data-label="要件・内容">
                   <span class="badge badge-caution">注意</span>
                   年間の合計は<strong><span class="num-chip">300万円</span>が上限</strong>です。
                 </td>
               </tr>
               <tr>
-                <td class="topic-col">対象法人・従業員数</td>
-                <td>
+                <td data-label="項目" class="topic-col">対象法人・従業員数</td>
+                <td data-label="要件・内容">
                   <span class="badge badge-important">重要</span>
                   <strong>青色申告の中小企業者等</strong>で、<strong>常時使用する従業員が<span class="num-chip">400人以下</span></strong>であることが必要です（取得が<strong><span class="num-chip">令和8年3月31日以前</span>なら<span class="num-chip">500人以下</span></strong>）。
                 </td>
               </tr>
               <tr>
-                <td class="topic-col">損金経理・別表添付</td>
-                <td>
+                <td data-label="項目" class="topic-col">損金経理・別表添付</td>
+                <td data-label="要件・内容">
                   <span class="badge badge-important">重要</span>
                   <strong>事業供用年度に損金経理</strong>し、<strong>確定申告書に別表16(7)を添付</strong>します。<strong>一度資産計上したものを、後の事業年度に一時損金にすることはできません</strong>。
                 </td>
@@ -859,20 +892,20 @@
             </thead>
             <tbody>
               <tr>
-                <td>令133の少額減価償却資産（10万円未満）の一時損金</td>
-                <td><strong>対象外</strong></td>
+                <td data-label="法人税での処理">令133の少額減価償却資産（10万円未満）の一時損金</td>
+                <td data-label="償却資産の申告"><strong>対象外</strong></td>
               </tr>
               <tr>
-                <td>一括償却資産（3年均等）</td>
-                <td><strong>対象外</strong></td>
+                <td data-label="法人税での処理">一括償却資産（3年均等）</td>
+                <td data-label="償却資産の申告"><strong>対象外</strong></td>
               </tr>
               <tr>
-                <td>措置法67条の5の特例で即時償却</td>
-                <td><strong>対象（申告が必要）</strong></td>
+                <td data-label="法人税での処理">措置法67条の5の特例で即時償却</td>
+                <td data-label="償却資産の申告"><strong>対象（申告が必要）</strong></td>
               </tr>
               <tr>
-                <td>修繕費</td>
-                <td><strong>資産計上がないため対象外</strong></td>
+                <td data-label="法人税での処理">修繕費</td>
+                <td data-label="償却資産の申告"><strong>資産計上がないため対象外</strong></td>
               </tr>
             </tbody>
           </table>
